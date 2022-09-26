@@ -55,7 +55,12 @@
 			html += '<tr>';
 			$.each(row, function( index, colData ) {
 				html += '<th>';
-				html += colData;
+				if(index==2){
+					str2 = colData.substring(0, colData.length - 1);
+					html += str2;
+				}else{
+					html += colData;
+				}
 				html += '</th>';
 			});
 			html += '</tr>';
