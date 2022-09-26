@@ -17,7 +17,7 @@
 			<i class="fa-solid fa-globe fa-2xl"></i>
 			<i class="fa-solid fa-arrows-left-right"></i>
          <i class="fa-solid fa-desktop fa-2xl"></i><br><br>
-			<input type="text" id="ricerca"  onkeyup="cerca()" name="ricerca" placeholder="Type to search...">
+			<!---<input type="text" id="ricerca"  onkeyup="cerca()" name="ricerca" placeholder="Type to search...">-->
       </center>
       <div id="excel_data" class="mt-5"></div>
     </div>
@@ -91,14 +91,14 @@
 	}
 	});
 
-   function cerca() {
+   function cerca(index) {
    	var input, filter, table, tr, td, i, txtValue;
    	input = document.getElementById("ricerca");
    	filter = input.value.toUpperCase();
    	table = document.getElementById("tabella");
    	tr = table.getElementsByTagName("tr");
 		for(i = 0; i < tr.length; i++){
-			td = tr[i].getElementsByTagName("td")[1];
+			td = tr[i].getElementsByTagName("td")[index];
    		if (td) {
    			txtValue = td.textContent || td.innerText;
    			if (txtValue.toUpperCase().indexOf(filter) > -1) {
