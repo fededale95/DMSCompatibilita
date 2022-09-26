@@ -105,26 +105,36 @@
 			td = tr[i].getElementsByTagName("td")[0];
 			td1 = tr[i].getElementsByTagName("td")[1];
 			td2 = tr[i].getElementsByTagName("td")[2];
-   		if (td||td1||td2) {
-   			txtValue = td.textContent || td.innerText;
-				txtValue1 = td1.textContent || td1.innerText;
-				txtValue2 = td2.textContent || td2.innerText;
-   			if (txtValue.toUpperCase().indexOf(filter) > -1) {
-   				tr[i].style.display = "";
-   			} else {
-   				tr[i].style.display = "none";
-   			}
-				if (txtValue1.toUpperCase().indexOf(filter1) > -1) {
-   				tr[i].style.display = "";
-   			} else {
-   				tr[i].style.display = "none";
-   			}
-				if (txtValue2.toUpperCase().indexOf(filter2) > -1) {
-   				tr[i].style.display = "";
-   			} else {
-   				tr[i].style.display = "none";
-   			}
+   		if (td) {
+				if(tr[i].style.display==""){
+	   			txtValue = td.textContent || td.innerText;
+	   			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	   				tr[i].style.display = "";
+	   			} else {
+	   				tr[i].style.display = "none";
+	   			}
+				}
    		}
+			if (td1){
+				if(tr[i].style.display==""){
+					txtValue1 = td1.textContent || td1.innerText;
+					if (txtValue1.toUpperCase().indexOf(filter1) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+			if (td2){
+				if(tr[i].style.display==""){
+					txtValue2 = td2.textContent || td2.innerText;
+					if (txtValue2.toUpperCase().indexOf(filter2) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
 		}
    }
 
