@@ -105,7 +105,7 @@
 			td = tr[i].getElementsByTagName("td")[0];
 			td1 = tr[i].getElementsByTagName("td")[1];
 			td2 = tr[i].getElementsByTagName("td")[2];
-   		if (td&&td1&&td2) {
+   		if (td||td1||td2) {
    			txtValue = td.textContent || td.innerText;
 				txtValue1 = td1.textContent || td1.innerText;
 				txtValue2 = td2.textContent || td2.innerText;
