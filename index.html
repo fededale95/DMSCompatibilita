@@ -61,7 +61,7 @@
 				}else{
 					html += colData;
 				}
-				html += '  <input type="text" id="ricerca'+index+'" onkeyup="cerca('+index+')" name="ricerca" placeholder="Type to search...">'
+				html += '  <input type="text" id="ricerca'+index+'" onkeyup="cerca()" name="ricerca" placeholder="Type to search...">'
 				html += '</th>';
 			});
 			html += '</tr>';
@@ -91,17 +91,35 @@
 	}
 	});
 
-   function cerca(index) {
+   function cerca() {
    	var input, filter, table, tr, td, i, txtValue;
-   	input = document.getElementById("ricerca"+index);
+   	input = document.getElementById("ricerca0");
+		input1 = document.getElementById("ricerca1");
+		input2 = document.getElementById("ricerca2");
    	filter = input.value.toUpperCase();
+		filter1 = input1.value.toUpperCase();
+		filter2 = input2.value.toUpperCase();
    	table = document.getElementById("tabella");
    	tr = table.getElementsByTagName("tr");
 		for(i = 0; i < tr.length; i++){
-			td = tr[i].getElementsByTagName("td")[index];
-   		if (td) {
+			td = tr[i].getElementsByTagName("td")[0];
+			td1 = tr[i].getElementsByTagName("td")[1];
+			td2 = tr[i].getElementsByTagName("td")[2];
+   		if (td&&td1&&td2) {
    			txtValue = td.textContent || td.innerText;
+				txtValue1 = td1.textContent || td1.innerText;
+				txtValue2 = td2.textContent || td2.innerText;
    			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+   				tr[i].style.display = "";
+   			} else {
+   				tr[i].style.display = "none";
+   			}
+				if (txtValue1.toUpperCase().indexOf(filter1) > -1) {
+   				tr[i].style.display = "";
+   			} else {
+   				tr[i].style.display = "none";
+   			}
+				if (txtValue2.toUpperCase().indexOf(filter2) > -1) {
    				tr[i].style.display = "";
    			} else {
    				tr[i].style.display = "none";
