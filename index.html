@@ -5,8 +5,10 @@
 	<title>DMSWEB-CS Compatibilità</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-   <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
    <script src="https://kit.fontawesome.com/5985bc4f83.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,66 +23,59 @@
 </html>
 
 
+
+
 <script>
-	const url= "http://10.1.6.14/plutone/Kilometraggio Notaspese.xls";
-   var req = new XMLHttpRequest();
-   req.open("GET", url, true);
-   req.responseType = "arraybuffer";
-   req.onload = function(e) {
-      writeTable(req);
-   }
-   req.onerror = function(e) {
-		const urlbak= "http://10.1.6.14/file.xlsx";
-	   var req1 = new XMLHttpRequest();
-	   req1.open("GET", urlbak, true);
-	   req1.responseType = "arraybuffer";
-	   req1.onload = function(e) {
-	      writeTable(req1);
-	   }
-	   req.onerror = function(e) {
-	       document.getElementById('excel_data').innerHTML = "Errore!";
-	   }
-   }
 
-   req.send();
+	$(document).ready(function(){
+	var data;
+	$.ajax({
+	  type: "GET",
+	  url: "dms-compatibility.csv",
+	  dataType: "text",
+	  success: function(response)
+	  {
+		data = $.csv.toArrays(response);
+		generateHtmlTable(data);
+	  }
+	});
 
-   function writeTable(req) {
-   	var data = new Uint8Array(req.response);
-   	var work_book = XLSX.read(data, {type:"array"});
-   	var sheet_name = work_book.SheetNames;
-   	var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
+	function generateHtmlTable(data) {
+		var html = '<table  class="table table-condensed table-hover table-striped">';
 
-   	if(sheet_data.length > 0) {
-   		 var table_output = '<table id="tabella" class="table table-striped table-borderless">';
-
-          var i = 0;
-
-          table_output += '<thead class="thead-dark">';
-          table_output += '<tr>';
-          table_output += '<th>DESTINAZIONE</th>';
-          table_output += '<th>KM</th>';
-          table_output += '<th>AZIONI</th>';
-          table_output += '</tr>';
-
-   		 for(var row = 1; row < sheet_data.length; row++) {
-				 if(sheet_data[row][0]!="REALE" && sheet_data[row][0]!=null){
-				 	table_output += '<tr>';
-					for(var cell = 0; cell < 2 ; cell++) {
-							if( cell == 1){
-							   table_output += '<td id="area'+i+'">'+sheet_data[row][cell]+'</td>'+'<td><button class="btn" onclick="copia('+"'area"+i+"'"+')"><i class="fa-solid fa-copy"></i></button></td>';
-							   i++;
-							}else{
-							   table_output += '<td>'+sheet_data[row][cell]+'</td>';
-							}
-					}
-					table_output += '</tr>';
-				 }
-   		 }
-   		 table_output += '</table>';
-   		 document.getElementById('excel_data').innerHTML = table_output;
-   	}
-
-   }
+		 if(typeof(data[0]) === 'undefined') {
+			return null;
+		 } else {
+		$.each(data, function( index, row ) {
+		  //bind header
+		  if(index == 0) {
+			html += '<thead>';
+			html += '<tr>';
+			$.each(row, function( index, colData ) {
+				html += '<th>';
+				html += colData;
+				html += '</th>';
+			});
+			html += '</tr>';
+			html += '</thead>';
+			html += '<tbody>';
+		  } else {
+			html += '<tr>';
+			$.each(row, function( index, colData ) {
+				html += '<td>';
+				html += colData;
+				html += '</td>';
+			});
+			html += '</tr>';
+		  }
+		});
+		html += '</tbody>';
+		html += '</table>';
+		alert(html);
+		$('#excel_data').append(html);
+	  }
+	}
+	});
 
    function cerca() {
    	var input, filter, table, tr, td, i, txtValue;
