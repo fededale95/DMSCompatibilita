@@ -106,34 +106,28 @@
 			td1 = tr[i].getElementsByTagName("td")[1];
 			td2 = tr[i].getElementsByTagName("td")[2];
    		if (td) {
-				if(tr[i].style.display!="none"){
 	   			txtValue = td.textContent || td.innerText;
-	   			if (txtValue.toUpperCase().indexOf(filter) > -1) {
-	   				tr[i].style.display = "";
-	   			} else {
-	   				tr[i].style.display = "none";
-	   			}
-				}
    		}
 			if (td1){
-				if(tr[i].style.display!="none"){
 					txtValue1 = td1.textContent || td1.innerText;
-					if (txtValue1.toUpperCase().indexOf(filter1) > -1) {
-						tr[i].style.display = "";
-					} else {
-						tr[i].style.display = "none";
-					}
-				}
 			}
 			if (td2){
-				if(tr[i].style.display!="none"){
 					txtValue2 = td2.textContent || td2.innerText;
-					if (txtValue2.toUpperCase().indexOf(filter2) > -1) {
+			}
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+				if(txtValue1.toUpperCase().indexOf(filter1) > -1){
+					tr[i].style.display = "";
+					if(txtValue2.toUpperCase().indexOf(filter2) > -1){
 						tr[i].style.display = "";
-					} else {
+					}else{
 						tr[i].style.display = "none";
 					}
+				}else{
+					tr[i].style.display = "none";
 				}
+			} else {
+				tr[i].style.display = "none";
 			}
 		}
    }
