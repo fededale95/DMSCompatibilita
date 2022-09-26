@@ -14,7 +14,9 @@
     <div class="container">
     	<h2 class="text-center mt-4 mb-4">WEB-CS Compatibilità</h2>
       <center>
-         <i class="fa-solid fa-car fa-2xl"></i><br><br>
+			<i class="fa-solid fa-globe fa-2xl"></i>
+			<i class="fa-solid fa-arrows-left-right"></i>
+         <i class="fa-solid fa-desktop fa-2xl"></i><br><br>
          <input type="text" id="ricerca"  onkeyup="cerca()" name="ricerca" placeholder="Type to search...">
       </center>
       <div id="excel_data" class="mt-5"></div>
@@ -53,7 +55,12 @@
 			html += '<tr>';
 			$.each(row, function( index, colData ) {
 				html += '<th>';
-				html += colData;
+				if(index==2){
+					str2 = colData.substring(0, colData.length - 1);
+					html += str2;
+				}else{
+					html += colData;
+				}
 				html += '</th>';
 			});
 			html += '</tr>';
@@ -63,7 +70,12 @@
 			html += '<tr>';
 			$.each(row, function( index, colData ) {
 				html += '<td>';
-				html += colData;
+				if(index==2){
+					str2 = colData.substring(0, colData.length - 1);
+					html += str2;
+				}else{
+					html += colData;
+				}
 				html += '</td>';
 			});
 			html += '</tr>';
@@ -85,7 +97,7 @@
    	table = document.getElementById("tabella");
    	tr = table.getElementsByTagName("tr");
    	for (i = 0; i < tr.length; i++) {
-   		td = tr[i].getElementsByTagName("td")[1];
+			td = tr[i].getElementsByTagName("td")[1];
    		if (td) {
    			txtValue = td.textContent || td.innerText;
    			if (txtValue.toUpperCase().indexOf(filter) > -1) {
