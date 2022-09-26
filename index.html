@@ -61,7 +61,7 @@
 				}else{
 					html += colData;
 				}
-				html += '  <input type="text" id="ricerca" onkeyup="cerca('+2+')" name="ricerca" placeholder="Type to search...">'
+				html += '  <input type="text" id="ricerca'+index'" onkeyup="cerca('+index+')" name="ricerca" placeholder="Type to search...">'
 				html += '</th>';
 			});
 			html += '</tr>';
@@ -93,7 +93,7 @@
 
    function cerca(index) {
    	var input, filter, table, tr, td, i, txtValue;
-   	input = document.getElementById("ricerca");
+   	input = document.getElementById("ricerca"+index);
    	filter = input.value.toUpperCase();
    	table = document.getElementById("tabella");
    	tr = table.getElementsByTagName("tr");
