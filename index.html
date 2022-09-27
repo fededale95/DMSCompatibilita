@@ -85,7 +85,8 @@
 			$.each(row, function( index, colData ) {
 				html += '<td>';
 				if(index==2){
-					str2 = colData.substring(0, colData.length - 1);
+					str2 = colData;
+					//str2 = colData.substring(0, colData.length - 1);
 					html += str2;
 				}else{
 					html += colData;
