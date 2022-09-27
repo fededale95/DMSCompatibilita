@@ -64,10 +64,15 @@
 			$.each(row, function( index, colData ) {
 				html += '<th>';
 				if(index==2){
-					str2 = colData.substring(0, colData.length - 1);
+					str2 = "Type";//colData.substring(0, colData.length - 1);
 					html += str2;
 				}else{
-					html += colData;
+					if(index==0){
+						html += "WEB Version";
+					}else{
+						html += "CS Version";
+					}
+					//html += colData;
 				}
 				html += '  <input type="text" id="ricerca'+index+'" onkeyup="cerca()" name="ricerca" placeholder="Type to search...">'
 				html += '</th>';
